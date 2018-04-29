@@ -31,11 +31,6 @@ fn main() {
 
 
     let uri = String::from("http://sogou.com");
-    //let suri = database::store_url(&con, &uri).unwrap();
-    //match database::get_url(&con, &suri) {
-        //Ok(uri) => println!("{}", uri),
-        //Err(why) => panic!("reason: {}", why.description()),
-    //};
 
     let suri = redis_client.set(&uri).unwrap();
     match redis_client.get(&suri) {
@@ -50,6 +45,5 @@ fn main() {
         .bind("127.0.0.1:8088").expect("Can not bind to 127.0.0.1:8088")
         .run();
 
-    //database::delete_url(&con, &suri).unwrap();
     redis_client.del(&suri).unwrap();
 }
