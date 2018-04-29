@@ -1,4 +1,5 @@
 extern crate redis;
+
 use redis::{Commands, RedisResult};
 
 pub struct RedisClient {
@@ -17,7 +18,6 @@ impl RedisClient {
     pub fn set(&mut self, uri: &String) -> RedisResult<String> {
         let hashed_uri = ::generate_shorturl_8();
         let _: () = try!(self.connection.set(&hashed_uri, uri));
-        println!("{} -> {}", uri, hashed_uri);
         Ok(hashed_uri)
     }
 

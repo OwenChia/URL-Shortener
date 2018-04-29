@@ -10,6 +10,12 @@ pub struct Config {
 }
 
 impl Config {
+    pub fn new() -> Config {
+        Config {
+            redis_connection: Some("redis+unix:/run/redis/redis.sock".to_owned()),
+        }
+    }
+
     pub fn from_file(path: &Path) -> Config {
         let mut file = match File::open(path) {
             Ok(file) => file,

@@ -1,10 +1,14 @@
 #![allow(dead_code)]
 #![allow(unused_imports)]
 
-use actix_web::{HttpRequest, HttpResponse};
+use actix_web::{Path, HttpRequest, HttpResponse};
 
 pub fn index(_req: HttpRequest) -> &'static str {
     "Hello world!"
+}
+
+pub fn path(info: Path<(String,)>) -> String {
+    format!("{}", info.0)
 }
 
 pub fn redirect(_req: HttpRequest) -> HttpResponse {
