@@ -9,12 +9,14 @@ use toml;
 #[derive(Debug, Deserialize)]
 pub struct Config {
     pub redis_connection: String,
+    pub url_length: Option<usize>,
 }
 
 impl Config {
     pub fn new() -> Config {
         Config {
             redis_connection: "redis+unix:/run/redis/redis.sock".to_owned(),
+            url_length: Some(8),
         }
     }
 

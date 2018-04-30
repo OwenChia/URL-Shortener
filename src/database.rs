@@ -13,6 +13,7 @@ impl Actor for DbExecutor {
 #[derive(Debug)]
 pub struct StoreUrl {
     pub url: String,
+    pub length: usize,
 }
 
 impl Message for StoreUrl {
@@ -23,8 +24,8 @@ impl Handler<StoreUrl> for DbExecutor {
     type Result = Result<String, RedisError>;
 
     fn handle(&mut self, msg: StoreUrl, _: &mut Self::Context) -> Self::Result {
-        let hashed_url = utils::generate_shorturl_8();
         let con = &self.0;
+        let hashed_url = utils::generate_shorturl(msg.length);
 
         let _: () = try!(con.set(&hashed_url, &msg.url));
         Ok(format!("{:?} -> {:?}", msg.url, hashed_url))
