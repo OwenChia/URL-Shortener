@@ -811,17 +811,17 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 29 - ((19 * winheight(0) + 19) / 38)
+let s:l = 32 - ((22 * winheight(0) + 19) / 38)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-29
+32
 normal! 0
 lcd ~/Workspace/practice/language/rust/shorturl
 wincmd w
 argglobal
 enew
-file /tmp/shorturl/__Tagbar__.1
+file ~/Workspace/practice/language/rust/shorturl/__Tagbar__.1
 let s:cpo_save=&cpo
 set cpo&vim
 imap <buffer> <S-BS> <Plug>delimitMateS-BS
@@ -958,6 +958,7 @@ setlocal nowinfixheight
 setlocal winfixwidth
 setlocal nowrap
 setlocal wrapmargin=0
+lcd ~/Workspace/practice/language/rust/shorturl
 wincmd w
 exe 'vert 1resize ' . ((&columns * 118 + 79) / 159)
 exe 'vert 2resize ' . ((&columns * 40 + 79) / 159)
