@@ -1,8 +1,10 @@
-extern crate toml;
-use std::path::Path;
+#![allow(dead_code)]
+use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
-use std::error::Error;
+use std::path::Path;
+
+use toml;
 
 #[derive(Debug, Deserialize)]
 pub struct Config {

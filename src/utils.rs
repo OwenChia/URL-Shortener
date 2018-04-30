@@ -15,3 +15,9 @@ fn generate_shorturl(length: usize) -> String {
 pub fn generate_shorturl_8() -> String {
     generate_shorturl(8)
 }
+
+pub fn redirect(uri: &str) -> String {
+    println!("redirect to: {}", uri);
+    format!(r#"<html><meta http-equiv="refresh" content="0;url={uri}"></html>"#,
+            uri=uri)
+}
