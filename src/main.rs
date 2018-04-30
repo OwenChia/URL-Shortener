@@ -9,7 +9,6 @@ extern crate toml;
 extern crate url;
 
 use std::path::Path;
-//use std::error::Error;
 
 use actix::prelude::*;
 use actix_web::middleware::Logger;
@@ -36,13 +35,6 @@ fn main() {
     let path = Path::new("config.toml");
     let config = Config::from_file(path);
 
-    //let redis_connection = match redis::Client::open(&config.redis_connection[..]) {
-        //Ok(client) => match client.get_connection() {
-            //Ok(con) => con,
-            //Err(why) => panic!("Please check your redis connection info: {:?}", why.description()),
-        //},
-        //Err(why) => panic!("Cloudn't connect to redis: {:?}", why.description()),
-    //};
     let redis_connection = redis::Client::open(&config.redis_connection[..])
         .expect("Please check your redis connection info")
         .get_connection()
