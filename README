@@ -1,8 +1,8 @@
-用 rust 写的第一个 Web 程序，主要用了 actix_web。
+用 rust 写的第一个 Web 程序， 数据库用的 Redis， Web 框架用了 actix_web。
+
 
 Usage:
-	build:
-		cargo build
-
-	run:
-		cargo run
+http://127.1:8088/
+	set/{fullurl|urlencode}
+	{shorturl}
+	del/{shorturl}
