@@ -19,6 +19,10 @@ impl Config {
     }
 
     pub fn from_file(path: &Path) -> Config {
+        if !path.exists() {
+            panic!("config file does not exists, eg. `config.toml`.")
+        }
+
         let mut file = match File::open(path) {
             Ok(file) => file,
             Err(why) => panic!("couldn't open config file: {}", why.description()),
