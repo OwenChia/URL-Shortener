@@ -9,6 +9,7 @@ extern crate toml;
 extern crate url;
 
 use std::path::Path;
+//use std::error::Error;
 
 use actix::prelude::*;
 use actix_web::middleware::Logger;
@@ -24,6 +25,7 @@ use config::Config;
 
 pub struct State {
     db: Addr<Syn, DbExecutor>,
+    length: usize,
 }
 
 fn main() {
@@ -34,15 +36,30 @@ fn main() {
     let path = Path::new("config.toml");
     let config = Config::from_file(path);
 
-    let redis_connection = {
-        let client = redis::Client::open(&config.redis_connection[..]);
-        client.unwrap().get_connection().unwrap()
-    };
+    //let redis_connection = match redis::Client::open(&config.redis_connection[..]) {
+        //Ok(client) => match client.get_connection() {
+            //Ok(con) => con,
+            //Err(why) => panic!("Please check your redis connection info: {:?}", why.description()),
+        //},
+        //Err(why) => panic!("Cloudn't connect to redis: {:?}", why.description()),
+    //};
+    let redis_connection = redis::Client::open(&config.redis_connection[..])
+        .expect("Please check your redis connection info")
+        .get_connection()
+        .expect("Cloudn't connect to redis");
 
     let addr: Addr<Syn, DbExecutor> = DbExecutor(redis_connection).start();
+    let length: usize = match config.url_length {
+        Some(len) => len,
+        None => 8,
+    };
 
     server::new(
-        move || App::with_state(State{ db: addr.clone() })
+        move || App::with_state(
+            State{
+                db: addr.clone(),
+                length: length,
+            })
             .middleware(Logger::default())
             .resource("/", |r| r.f(handler::index))
             .resource("/set/{url}", |r| r.method(http::Method::GET).with2(handler::set))
