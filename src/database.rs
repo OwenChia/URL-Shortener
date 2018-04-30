@@ -27,7 +27,7 @@ impl Handler<StoreUrl> for DbExecutor {
         let con = &self.0;
 
         let _: () = try!(con.set(&hashed_url, &msg.url));
-        Ok(format!("{:?} -> {:?}", msg, hashed_url))
+        Ok(format!("{:?} -> {:?}", msg.url, hashed_url))
     }
 }
 

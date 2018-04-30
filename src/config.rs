@@ -8,13 +8,13 @@ use toml;
 
 #[derive(Debug, Deserialize)]
 pub struct Config {
-    pub redis_connection: Option<String>,
+    pub redis_connection: String,
 }
 
 impl Config {
     pub fn new() -> Config {
         Config {
-            redis_connection: Some("redis+unix:/run/redis/redis.sock".to_owned()),
+            redis_connection: "redis+unix:/run/redis/redis.sock".to_owned(),
         }
     }
 

@@ -35,7 +35,7 @@ fn main() {
     let config = Config::from_file(path);
 
     let redis_connection = {
-        let client = redis::Client::open(&config.redis_connection.unwrap()[..]);
+        let client = redis::Client::open(&config.redis_connection[..]);
         client.unwrap().get_connection().unwrap()
     };
 
